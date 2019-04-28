@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Night Out</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="home.css">
+</head>
+<body>
+
+	<h1>Night Out</h1>
+
+	<ul>
+	  <li><a href="home.html">What's Near You?</a></li>
+	  <li><a href="page2.html">What's Popular?</a></li>
+	  <li><a href="page3.html">What's New?</a></li>
+		<li><a href="#page4.html">Specials by Day</a></li>
+	  <li><a href="about.html">About</a></li>
+	</ul>
+
+	<h2>What's Near You?</h2>
+
+	<button onclick="provider">Google Sign-in</button>
+
+	<div id="map"></div>
+    <script>
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 10
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCsvoIEpwl8e08rNSXDTsO9p03hRp7qrbM&callback=initMap">
+    </script>
+
+
+		<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+	<script>
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyBKcj2vtMh-cTCpdbDbiXVRfStEJSOm-f8",
+			authDomain: "night-out-27055.firebaseapp.com",
+			databaseURL: "https://night-out-27055.firebaseio.com",
+			projectId: "night-out-27055",
+			storageBucket: "night-out-27055.appspot.com",
+			messagingSenderId: "897756890552"
+		};
+		firebase.initializeApp(config);
+
+		// Using a popup.
+		var provider = new firebase.auth.GoogleAuthProvider();
+		provider.addScope('profile');
+		provider.addScope('email');
+		firebase.auth().signInWithPopup(provider).then(function(result) {
+		 // This gives you a Google Access Token.
+		 var token = result.credential.accessToken;
+		 // The signed-in user info.
+		 var user = result.user;
+		});
+
+</script>
+</body>
+</html>

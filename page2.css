@@ -1,0 +1,35 @@
+body {
+  background-image: url("goingout.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #6600cc;
+}
+
+li {
+  display: inline;
+  float: left;
+}
+li a {
+  display: block;
+  padding: 20px;
+  background-color: #6600cc;
+  color: white;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #ce99ff;
+}
+
+h1 {
+  font-family: Comic Sans MS;
+  color: white;
+  text-align: center;
+}
